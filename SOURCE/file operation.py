@@ -46,10 +46,12 @@ myLoan = LoanCalculator(10000, 36, 4.75)
 print(myLoan.calculate_monthly_payment())
 print((f"Total amount paid: {myLoan.calculate_total_amount_paid()} "))
 
+#leap validation
 def check_leap_year(year):
     """Check if a year is leap or not"""
     if  (year % 4 == 0 and year % 100 != 0) or (year % 400 == 0):
         print (f"{year} is a Leap Year.")
+        return False
     else:
         print (f"{year} is Not a Leap Year.")
         return True
@@ -58,6 +60,19 @@ currentYear=int(input('Enter current Year: '))
 check_leap_year(currentYear)
 print(check_leap_year)
     
+#loan calculation with leap year adjustment
+if check_leap_year==False:
+    myLeapLoan=LoanCalculator(10000+(1000*9/12),36+9,4.75/4)
+else:
+    myLeapLoan=LoanCalculator(10000,36,4.75)
+    print(myLeapLoan.calculate_monthly_payment())
+    print("Monthly Payment in non-leap year: ",myLoan.calculate_monthly_payment())
+    
+print("Without Adjustment:\n",myLeapLoan.calculate_monthly_payment(),"\nTotal Amount Paid: ",myLeapLoan.calculate_total_amount_paid())
+print("The loan details in non-leap year are as follows:\n")
+print(myLeapLoan.__dict__)
+print("\n\nThe loan details in",currentYear,"are as follows:\n")
+print(myLeapLoan.__dict__)
     
 
 
